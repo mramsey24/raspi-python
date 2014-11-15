@@ -27,5 +27,9 @@ def read_temp():
 		temp_f = temp_c * 9.0 / 5.0 + 32.0
 		return temp_c, temp_f
 
-print (read_temp_raw())
-print (read_temp())
+# print (read_temp_raw())
+# print (read_temp())
+
+while True:
+	print(read_temp())	
+	time.sleep(1)

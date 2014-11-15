@@ -1,26 +1,35 @@
+//Get the directory name of the device
 def base_dir = '/devl/python/'
 def device_folder = base_dir + '28abcdefg'
-def device_file = device_folder + '/w1_slave'
-println('Folder...'+device_file)
-println read_raw_temp(device_file)
-read_temp(device_file)
+def deviceFilePath = device_folder + '/w1_slave'
+println('Folder...'+deviceFilePath)
 
-def read_raw_temp(def device_file) {
-	def tempFile = new File(device_file)	
-	tempFile.text
+float temp = readTemp(deviceFilePath)
+println ((convertToCelsius(temp)).round(2) + " degrees Celsius")
+println ((convertToFarenheit(temp)).round(2) + " degrees Farenhheit")
 
+def readTemp(def deviceFilePath) {
+	def deviceFile = new File(deviceFilePath)
+	def rawTemp
+
+	deviceFile.eachLine {
+		if (it.contains("YES")) {return}
+		rawTemp = parseTemp(it).toFloat()
+	}	
+	return rawTemp
 }
 
-def read_temp(def device_file) {
-	lines = read_raw_temp(device_file)
-	println lines
-	println "Loop started"
-	while (!(lines.contains("YES"))) {
-		sleep 5
-		lines = read_raw_temp(device_file)
-		println lines
-	}
-	println "Loop ended"
-	
+def parseTemp(deviceLine) {
+	def tempLine = new ConfigSlurper().parse(deviceLine)
+	tempLine.t    
 }
+
+def convertToCelsius(temperature) {
+	(temperature / 1000.0) 
+}
+
+def convertToFarenheit(temperature) {
+	((temperature/1000.0) * 9.0/5.0 + 32.0) 
+}
+
 

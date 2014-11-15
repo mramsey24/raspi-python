@@ -42,7 +42,7 @@ import devicehive.auto
 
 
 # change it to match your address for 1-wire sensor
-_W1_FILENAME='/sys/bus/w1/devices/28-00000393268a/w1_slave'
+_W1_FILENAME='/sys/bus/w1/devices/28-000005aba242/w1_slave'
 if not os.path.exists(_W1_FILENAME) :
     _W1_FILENAME = '/dev/null'
 
@@ -50,7 +50,7 @@ if not os.path.exists(_W1_FILENAME) :
 _LED_PIN=11
 
 # API URL (register for free playground at http://beta2.devicehive.com/playground
-_API_URL = 'http://pg.devicehive.com/api/'
+_API_URL = 'http://nn7454.pg.devicehive.com/api'
 
 #
 # for easier reading, this class holds all registration information for DeviceHive

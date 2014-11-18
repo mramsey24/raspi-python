@@ -1,9 +1,11 @@
 import os
 import glob
 import time
+import logging
 
-#base_dir='/devl/python/'
-base_dir = '/sys/bus/w1/devices/'
+logging.basicConfig(format='%(asctime)s %(message)s',filename='temperature.log',level=logging.DEBUG)
+base_dir='/devl/python/'
+#base_dir = '/sys/bus/w1/devices/'
 device_folder= glob.glob(base_dir+'28*')[0]
 device_file = device_folder + '/w1_slave'
 print ("Folder..." + device_folder)
@@ -31,5 +33,7 @@ def read_temp():
 # print (read_temp())
 
 while True:
-	print(read_temp())	
-	time.sleep(1)
+	tempC, tempF = read_temp()
+	print ("{:.2f}".format(tempC)+'....'+"{:.2f}".format(tempF))
+	logging.debug(tempC )	
+	time.sleep(5)
